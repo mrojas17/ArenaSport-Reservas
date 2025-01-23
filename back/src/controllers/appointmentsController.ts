@@ -1,21 +1,41 @@
 
 import { Request, Response } from "express"
-// import IUser from "../interfaces/IUser";
-
+import IAppointments from "../interfaces/IAppointments";
+import { getAppointmentsService, getAppointmentByIdService } from "../services/appointmentService";
 
 
 export const getAppointments = async (req: Request, res: Response) => {
-    res.status(200).json({message: "Obtener el listado de todos los turnos de todos los usuarios."})
+    try {
+        const appointments: IAppointments[] = await getAppointmentsService();
+
+        res.status(200).json(appointments)
+    } catch (error: any) {
+        res.status(500).json({
+            error: "Este es un error en la peticion del usuario",
+            details: error.message,
+        });
+    }
 }
 
-export const  getAppointmentsDetails = async (req: Request, res: Response ) => {
-    res.status(200).json({message: "Obtener el detalle de un turno específico."})
+export const  getAppointmentsById = async (req: Request, res: Response ) => {
+    try {
+            const appointmentId= req.params.id;
+    
+            const appointment = await getAppointmentByIdService(Number(appointmentId));
+    
+            res.status(200).json(appointment);
+        } catch (error: any) {
+            res.status(500).json({
+                error: "Error al buscar ese id",
+                details: error.message,
+            });
+        }
 }
 
 export const askAppointments = async (req: Request, res: Response ) => {
-    res.status(200).json({message: "Agendar un nuevo turno."})
+    res.send({message: "Agendar un nuevo turno."})
 }
 
 export const CancelledAppointments = async (req: Request, res: Response ) => {
-    res.status(200).json({message: "Obtener el detalle de un turno específico."})
+    res.send({message: "Obtener el detalle de un turno específico."})
 }

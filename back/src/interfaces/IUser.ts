@@ -1,7 +1,10 @@
+
 interface IUser {
     id: number,
-    user: string,
-    password: string,
+    name: string,
+    email: string,
+    birthdate: string,
+    credencialId: number
 }
 
 export default IUser;
