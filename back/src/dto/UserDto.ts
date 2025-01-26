@@ -4,7 +4,7 @@ interface UserDto extends CredentialDto {
     name: string,
     email: string,
     birthdate: string,
-    credencialId: number
+    nDni: number
 }
 
 export default UserDto

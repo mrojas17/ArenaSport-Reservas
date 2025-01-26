@@ -1,10 +1,14 @@
-import IUser from "./IUser"
+export enum AppointmentStatus {
+    ACTIVE = "active",
+    CANCELLED = "cancelled"
+}
 
-interface IAppointments  extends IUser {
+
+interface IAppointments {
     id: number,
     date: string,
-    hour: string,  
-    status: string
+    time: string,  
+    status: AppointmentStatus,
     userId: number
 }
 

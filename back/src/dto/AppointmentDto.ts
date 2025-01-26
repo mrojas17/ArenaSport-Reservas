@@ -1,8 +1,8 @@
-interface AppointmentDto  {
-    date: string,
-    hour: string,  
-    status: string
-    userId: number
-}
+import { AppointmentStatus } from "../entities/Appointment";
 
-export default AppointmentDto;
+export interface AppointmentDto {
+    date: string;
+    time: string;
+    status: AppointmentStatus;
+    userId: number;
+}

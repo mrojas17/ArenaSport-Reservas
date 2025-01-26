@@ -1,23 +1,57 @@
-import IAppointments from "../interfaces/IAppointments";
-//import AppointmentDto from "../dto/AppointmentDto";
+import { AppointmentStatus, Appointment } from "../entities/Appointment";
+import {AppointmentDto} from "../dto/AppointmentDto";
+import { Appointmentmodel, Usermodel } from "../config/data-source";
 
-let appointments: IAppointments[] = [];
 
-//let id=1;
+export const createAppointmentsService = async (appointmentData: AppointmentDto): Promise<Appointment> => {
+    
+    
+     const user = await Usermodel.findOneBy({
+        id: appointmentData.userId
+    });
 
-// Implementar una función que pueda retornar el arreglo completo de turnos.
-export const getAppointmentsService = async():Promise<IAppointments[]> => {
+    if (!user) {
+        throw new Error("User not found");
+    }
+
+    const newAppointment = Appointmentmodel.create({
+        date: appointmentData.date,
+        time: appointmentData.time,
+        status: appointmentData.status as AppointmentStatus, 
+        userId: appointmentData.userId,
+    });
+
+    const results = await Appointmentmodel.save(newAppointment);
+    return results;
+}
+
+
+
+export const getAppointmentsService = async():Promise<Appointment[]> => {
+    const appointments = await Appointmentmodel.find();
     return appointments;
+
+}
+
+
+export const getAppointmentByIdService = async(id: number):Promise <Appointment | null> => {
+    const appointmentId = await Appointmentmodel.findOneBy({
+        id
+    })
+    return appointmentId
  }
 
-// Implementar una función que pueda obtener el detalle de un turno por ID.
-export const getAppointmentByIdService = async(id: number):Promise <IAppointments | null> => {
-    const appointment = appointments.find((appointment) => appointment.id === id);
-    return appointment || null;
- }
 
-// Implementar una función que pueda crear un nuevo turno, siempre guardando, además, 
-// el ID del usuario que ha creado dicho turno. NO PUEDE HABER UN TURNO SIN ID DE USUARIO. 
+ export const cancelAppointmentsService = async (id: number): Promise<Appointment> => {
 
+    const appointment = await Appointmentmodel.findOneBy({ id });
+    if (!appointment) {
+        throw new Error('Appointment not found');
+    }
 
-// Implementar una función que reciba el id de un turno específico y una vez identificado el turno correspondiente, cambiar su estado a “cancelled”.
+    appointment.status = AppointmentStatus.CANCELLED;
+
+    await Appointmentmodel.save(appointment);
+
+    return appointment;
+};
