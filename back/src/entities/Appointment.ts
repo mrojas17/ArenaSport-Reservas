@@ -12,6 +12,9 @@ export enum AppointmentStatus {
 export class Appointment {
     @PrimaryGeneratedColumn()
     id: number;
+
+    @Column()
+    asunto: string;
     
     @Column()
     date: string;

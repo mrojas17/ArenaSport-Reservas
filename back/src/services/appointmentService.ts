@@ -1,41 +1,53 @@
 import { AppointmentStatus, Appointment } from "../entities/Appointment";
 import {AppointmentDto} from "../dto/AppointmentDto";
-import { Appointmentmodel, Usermodel } from "../config/data-source";
+import { AppDataSource } from "../config/data-source";
+import AppointmentRepository from "../repositories/AppointmentRepository";
+import UserRepository from "../repositories/UserRepository";
 
 
-export const createAppointmentsService = async (appointmentData: AppointmentDto): Promise<Appointment> => {
+export const createAppointmentsService = async (appointmentData: AppointmentDto): Promise<Appointment | void> => {
+    const queryRunner = AppDataSource.createQueryRunner()
+    await queryRunner.connect();
+
+    try {
+        queryRunner.startTransaction()
     
-    
-     const user = await Usermodel.findOneBy({
-        id: appointmentData.userId
-    });
+        const newAppointment = AppointmentRepository.create({
+            asunto: appointmentData.asunto,
+            date: appointmentData.date,
+            time: appointmentData.time,
+            status: appointmentData.status as AppointmentStatus, 
+            userId: appointmentData.userId,
+        });
 
-    if (!user) {
-        throw new Error("User not found");
+        await queryRunner.manager.save(newAppointment);
+        const user = await UserRepository.findById(appointmentData.userId)
+
+        newAppointment.user = user;
+        await queryRunner.manager.save(newAppointment);
+
+        await queryRunner.commitTransaction();
+
+        return newAppointment
+    } catch (error: any) {
+        await queryRunner.rollbackTransaction();
+        throw new Error("Error creating appointment: " + error.message);
+    } finally {
+       await queryRunner.release();
     }
 
-    const newAppointment = Appointmentmodel.create({
-        date: appointmentData.date,
-        time: appointmentData.time,
-        status: appointmentData.status as AppointmentStatus, 
-        userId: appointmentData.userId,
-    });
-
-    const results = await Appointmentmodel.save(newAppointment);
-    return results;
 }
 
 
-
 export const getAppointmentsService = async():Promise<Appointment[]> => {
-    const appointments = await Appointmentmodel.find();
+    const appointments = await AppointmentRepository.find();
     return appointments;
 
 }
 
 
 export const getAppointmentByIdService = async(id: number):Promise <Appointment | null> => {
-    const appointmentId = await Appointmentmodel.findOneBy({
+    const appointmentId = await AppointmentRepository.findOneBy({
         id
     })
     return appointmentId
@@ -44,14 +56,14 @@ export const getAppointmentByIdService = async(id: number):Promise <Appointment 
 
  export const cancelAppointmentsService = async (id: number): Promise<Appointment> => {
 
-    const appointment = await Appointmentmodel.findOneBy({ id });
+    const appointment = await AppointmentRepository.findOneBy({ id });
     if (!appointment) {
         throw new Error('Appointment not found');
     }
 
     appointment.status = AppointmentStatus.CANCELLED;
 
-    await Appointmentmodel.save(appointment);
+    await AppointmentRepository.save(appointment);
 
     return appointment;
 };

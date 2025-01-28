@@ -52,7 +52,7 @@ export const scheduleAppointments = async (req: Request, res: Response ) => {
 
 export const CancelAppointments = async (req: Request, res: Response ) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
 
         const updatedAppointment = await cancelAppointmentsService(Number(id));
 

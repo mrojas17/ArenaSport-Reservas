@@ -59,10 +59,10 @@ export const loginUsers = async (req: Request, res: Response )=> {
         const { username, password } = req.body;
 
         const userId = await validateUsername(username, password);
-
+        const users = await getUserById(userId)
         res.status(200).json({
         message: "Login exitoso",
-        userId,
+        userId, users
         });
     }
     catch (error: any) {
