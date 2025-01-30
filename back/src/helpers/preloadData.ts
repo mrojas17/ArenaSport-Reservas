@@ -14,13 +14,13 @@ const userList = [
         birthdate: "17/11/1998",
         nDni: 1121959,
         username: "monicar",
-        password: "jua2je34"
+        password: "juanse"
     },{
         name: "Juan jose",
-        email: "jj@gmail.com",
+        email: "jscastrom1@gmail.com",
         birthdate: "17/11/2025",
         nDni: 137431959,
-        username: "jjc73",
+        username: "juanse",
         password: "hsdui6"
     },{
         name: "Juan Castro",

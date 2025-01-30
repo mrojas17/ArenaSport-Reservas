@@ -1,6 +1,6 @@
 
 import { Request, Response } from "express"
-import { getAppointmentsService, getAppointmentByIdService, createAppointmentsService, cancelAppointmentsService } from "../services/appointmentService";
+import { getAppointmentsService, getAppointmentByIdService, scheduleAppointmentsService, cancelAppointmentsService } from "../services/appointmentService";
 import { AppointmentDto } from "../dto/AppointmentDto";
 
 
@@ -36,7 +36,7 @@ export const scheduleAppointments = async (req: Request, res: Response ) => {
    try {
            const appointment: AppointmentDto = req.body;
    
-           const newAppointment = await createAppointmentsService(appointment);
+           const newAppointment = await scheduleAppointmentsService(appointment);
    
            res.status(201).json({
                message: "Turno creado correctamento",
