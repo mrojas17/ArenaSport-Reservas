@@ -1,4 +1,4 @@
-import styles from "../styles/Card.module.css";
+import styles from "../styles/card.module.css";
 import { useState } from "react";
 
 const Appointment = ({asunto, date, time, status}) => {
@@ -15,7 +15,8 @@ const Appointment = ({asunto, date, time, status}) => {
       <td>{date}</td>
       <td>{time}</td>
       <td>{changeStatus}</td>
-      <td><button onClick={handlerCancel} className={styles.cancelButton}>
+      <td><button onClick={handlerCancel} className={`${styles.cancelButton} ${changeStatus === "Cancelled" ? styles.disabledButton : ""}`}
+       disabled={changeStatus === "Cancelled"}>
         Cancelar</button>
         </td>
       

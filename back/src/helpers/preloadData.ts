@@ -1,8 +1,6 @@
 
-import { DeepPartial } from "typeorm";
 import { AppDataSource} from "../config/data-source";
 import { AppointmentStatus } from "../entities/Appointment";
-import { Appointment } from "../entities/Appointment";
 import UserRepository from "../repositories/UserRepository";
 import CredentialRepository from "../repositories/CredentialRepository";
 import AppointmentRepository from "../repositories/AppointmentRepository";
@@ -39,7 +37,7 @@ const userList = [
     }
 ];
 
-const preloadAppointments: DeepPartial<Appointment>[] = [
+const preloadAppointments = [
     {
         asunto: "Reservar cancha de futbol",
         date: "05/02/2025",
@@ -51,32 +49,32 @@ const preloadAppointments: DeepPartial<Appointment>[] = [
         date: "07/02/2025",
         time: "1 hora",  
         status: AppointmentStatus.ACTIVE,
-        userId: 2
+        user: 2
     },{
         asunto: "Reservar cancha de Voleibol",
         date: "10/02/2025",
         time: "3 horas",  
         status: AppointmentStatus.ACTIVE,
-        userId: 3
+        user: 3
     },{
         asunto: "Reservar cancha de padel",
         date: "25/02/2025",
         time: "3 horas",  
         status: AppointmentStatus.ACTIVE,
-        userId: 4
+        user: 4
     }
 ];
 
 export const preloadUserData = async () => {
-
-   await AppDataSource.manager.transaction(async (transactionalEntityManager)=> {
-        
+    await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
         const users = await UserRepository.find();
 
-        if (users.length)   return  console.log("No se hizo la precarga de datos porque ya hay datos")
-    
+        if (users.length) {
+            console.log("No se hizo la precarga de datos porque ya hay datos");
+            return;
+        }
 
-        for await (const user of userList) {
+        for (const user of userList) {
             const newCredential = CredentialRepository.create({
                 username: user.username,
                 password: user.password
@@ -89,41 +87,33 @@ export const preloadUserData = async () => {
                 email: user.email,
                 birthdate: user.birthdate,
                 nDni: user.nDni,
-                credentialId: savedCredential.id
+                credential: savedCredential // Asignar el objeto Credential directamente
             });
 
             await transactionalEntityManager.save(newUser);
         }
 
         console.log("Precarga de datos de usuario realizado con exito");
-    })
-}
+    });
+};
 
 export const preloadAppointmentsData = async () => {
-    const queryRunner = AppDataSource.createQueryRunner();
-    await queryRunner.connect();
+    await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
+        for (const appointment of preloadAppointments) {
+            const user = await UserRepository.findOneBy({ id: appointment.userId });
+            if (!user) throw new Error(`Usuario con ID ${appointment.userId} no encontrado`);
 
-    const promises =  preloadAppointments.map(async (appointment)=> {
-        const newAppointment = await AppointmentRepository.create(appointment)
-        await queryRunner.manager.save(newAppointment);
-        const user = await UserRepository.findOneBy({id:appointment.userId});
-        if(!user) throw Error ("Usuario inexistente")
-        newAppointment.user = user;
-        queryRunner.manager.save(newAppointment);
-    })
+            const newAppointment = AppointmentRepository.create({
+                asunto: appointment.asunto,
+                date: appointment.date,
+                time: appointment.time,
+                status: appointment.status,
+                user: user,
+            });
 
-    try {
-        await Promise.all(promises);
-        await queryRunner.startTransaction();
-        console.log("Precarga de appointments realizada con éxito");
-        await queryRunner.commitTransaction();  
-    } catch  {
-        console.log("Error al intertar un appointment");
-        await queryRunner.rollbackTransaction();
-    }finally{
-        console.log("Ha finalizado el intento de carga");
-        await queryRunner.release()
-    }
-    
-}
+            await transactionalEntityManager.save(newAppointment);
+        }
 
+        console.log("Precarga de datos de turnos realizada con éxito");
+    });
+};

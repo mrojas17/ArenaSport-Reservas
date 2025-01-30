@@ -1,47 +1,66 @@
 import { AppointmentStatus, Appointment } from "../entities/Appointment";
 import {AppointmentDto} from "../dto/AppointmentDto";
-import { AppDataSource } from "../config/data-source";
 import AppointmentRepository from "../repositories/AppointmentRepository";
 import UserRepository from "../repositories/UserRepository";
 import { sendConfirmationEmail } from "./emailService";
 
+export const scheduleAppointmentsService = async (
+    scheduleAppointmentDto: AppointmentDto
+): Promise<Appointment | void > => {
+    const {date, time, userId, asunto} = scheduleAppointmentDto;
 
-export const scheduleAppointmentsService = async (appointmentData: AppointmentDto): Promise<Appointment | void> => {
-    const queryRunner = AppDataSource.createQueryRunner();
-    await queryRunner.connect();
+    const findUser = await UserRepository.findOneBy({id: userId})
+    if (!findUser) throw new Error("Usuario no encontrado");
 
-    try {
-        queryRunner.startTransaction();
+    const newAppointment = AppointmentRepository.create({
+        date, time, user: findUser, asunto, status: AppointmentStatus.ACTIVE
+    })
 
-        const newAppointment = AppointmentRepository.create({
-            asunto: appointmentData.asunto,
-            date: appointmentData.date,
-            time: appointmentData.time,
-            status: appointmentData.status as AppointmentStatus,
-            userId: appointmentData.userId,
-        });
-
-        await queryRunner.manager.save(newAppointment);
-        const user = await UserRepository.findById(appointmentData.userId);
-
-        if (!user) throw new Error("Usuario no encontrado");
-
-        newAppointment.user = user;
-        await queryRunner.manager.save(newAppointment);
-
-        await queryRunner.commitTransaction();
-
-        // 🔹 Enviar email de confirmación
-        await sendConfirmationEmail(user.email, newAppointment);
-
-        return newAppointment;
-    } catch (error: any) {
-        await queryRunner.rollbackTransaction();
-        throw new Error("Error creando el turno: " + error.message);
-    } finally {
-        await queryRunner.release();
-    }
+    await AppointmentRepository.save(newAppointment)
+     await sendConfirmationEmail(findUser.email, newAppointment);
+    return newAppointment
 }
+
+
+
+
+
+// export const scheduleAppointmentsService = async (appointmentData: AppointmentDto): Promise<Appointment | void> => {
+//     const queryRunner = AppDataSource.createQueryRunner();
+//     await queryRunner.connect();
+
+//     try {
+//         queryRunner.startTransaction();
+        
+//         const user = await UserRepository.findOneBy({ id: Number(appointmentData.userId)});
+
+//         if (!user) throw new Error("Usuario no encontrado");
+
+//         const newAppointment = AppointmentRepository.create({
+//             asunto: appointmentData.asunto,
+//             date: appointmentData.date,
+//             time: appointmentData.time,
+//             status: appointmentData.status as AppointmentStatus,
+//             user: user,
+//         });
+
+//         await queryRunner.manager.save(newAppointment);
+
+//         await queryRunner.manager.save(newAppointment);
+
+//         await queryRunner.commitTransaction();
+
+//         // 🔹 Enviar email de confirmación
+//         await sendConfirmationEmail(user.email, newAppointment);
+
+//         return newAppointment;
+//     } catch (error: any) {
+//         await queryRunner.rollbackTransaction();
+//         throw new Error("Error creando el turno: " + error.message);
+//     } finally {
+//         await queryRunner.release();
+//     }
+// }
 
 export const getAppointmentsService = async():Promise<Appointment[]> => {
     const appointments = await AppointmentRepository.find();

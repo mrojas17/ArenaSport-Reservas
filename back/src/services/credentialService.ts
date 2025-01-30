@@ -4,16 +4,14 @@ import CredentialRepository from "../repositories/CredentialRepository";
 
 export const createCredentialUser = async (
     credentialData: CredentialDto
-): Promise<number> => {
+) => {
 
-        const newCredentialUser = CredentialRepository.create({
-            username: credentialData.username,
-            password: credentialData.password,
-        });
-    
-        const savedCredential = await CredentialRepository.save(newCredentialUser);
-    
-        return savedCredential.id;
+    const credential = CredentialRepository.create({
+        username: credentialData.username,
+        password: credentialData.password,
+    });
+
+    return await CredentialRepository.save(credential);
     
 };
 

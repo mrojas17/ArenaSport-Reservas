@@ -3,42 +3,42 @@
     max-width: 900px;
     margin: 0 auto;
   }
-  
-  .appointmentsTable {
-    width: 100%;
-    border-collapse: collapse; /* Para que las celdas no tengan espacio entre ellas */
-    margin-top: 20px;
-    font-family: Arial, sans-serif; /* Fuentes para una mejor legibilidad */
-  }
-  
-  .appointmentsTable th,
-  .appointmentsTable td {
-    padding: 12px 15px;
-    text-align: left;
-    border: 1px solid #ddd; /* Líneas suaves entre celdas */
-    font-size: 16px;
-    background-color: #115986;
-  }
-  
-  .appointmentsTable th {
-    background-color: #0d0d4b;
-    font-weight: bold;
-    color: #ddd;
-  }
-  
-  
-  .cancelButton {
-    background-color: #ff4c4c;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-  
-  .cancelButton:hover {
-    background-color: #e03d3d;
-  }
+
+.appointmentSchedule{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+}
+.Button {
+  background-color: #0d0d4b;
+  width: 7vw;
+  height: 5vh;
+  color: white;
+  border-radius: 15px;
+}
+
+
+.appointmentsTable {
+  width: 100%;
+  border-collapse: collapse; 
+  font-family: Arial, sans-serif;
+}
+
+.appointmentsTable th,
+.appointmentsTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd; 
+  font-size: 16px;
+  background-color: #115986;
+}
+
+.appointmentsTable th {
+  background-color: #0d0d4b;
+  font-weight: bold;
+  color: #ddd;
+}
+
+
   

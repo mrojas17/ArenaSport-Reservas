@@ -1,21 +1,34 @@
 import styles from "../styles/Appointments.module.css"
-import myAppointment from "../helpers/myAppointments"; 
 import Card from "../components/Card"; 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Appointments = () => {
-const [turno, setTurnos] = useState(myAppointment);
-console.log(myAppointment)
+  const [turno, setTurnos] = useState([]);
+  
+  useEffect(() => {
+    axios.get("http://localhost:3000/appointments"
+
+    ).then(res=>setTurnos(res.data))
+    .catch(err => {
+      console.error("Error response:", err.response);
+      console.error("Error message:", err.message);
+      console.error("Error details:", err.response.data);
+    });
+  }, [])
 
   return (
     <div className={styles.appointmentsContainer}>
-      <h2>Mis Turnos</h2>
+      <div className={styles.appointmentSchedule} >
+        <h1>Mis Turnos</h1>
+        <button className={styles.Button}>Reservar turno</button>
+      </div>
       <table className={styles.appointmentsTable}>
         <thead>
           <tr>
             <th>Asunto</th>
-            <th>Fecha</th>
-            <th>Duración</th>
+            <th>date</th>
+            <th>time</th>
             <th>Status</th>
             <th>Acción</th>
           </tr>

@@ -17,7 +17,7 @@ export const registerUsersService = async(userData: UserDto) => {
             email: userData.email,
             birthdate: userData.birthdate,
             nDni: userData.nDni,
-            credentialId: credential,
+            credential: credential,
         })
     const results = await UserRepository.save(user)
     return results
