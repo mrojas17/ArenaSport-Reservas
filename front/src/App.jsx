@@ -1,13 +1,15 @@
 import './App.css'
-import Appointments from './components/Appointments';
-//import Home from './components/Home';
-//import RegisterUser from "./components/RegisterUser"
+import NavBar from './components/NavBar';
+import Appointments from './views/Appointments';
+//import Home from './views/Home';
+//import RegisterUser from './views/RegisterUser'
 //import LoginUser from "./components/LoginUser"
 
 function App() {
 
   return (
     <>
+        <NavBar/>
         <Appointments/>
     </>
   )

@@ -1,0 +1,35 @@
+.appointment {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 15px;
+    border: 1px solid #ddd; /* Bordes de la celda */
+    margin-bottom: 8px; /* Espacio entre filas */
+    background-color: #fff; /* Fondo blanco para las filas */
+  }
+  
+  .appointment h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .appointment p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .cancelButton {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cancelButton:hover {
+    background-color: #e03d3d;
+  }
+  

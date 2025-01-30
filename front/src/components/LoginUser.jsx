@@ -1,4 +1,4 @@
-import styles from "../views/LoginUser.module.css"
+import styles from "../styles/LoginUser.module.css"
 
 const LoginUser = () => {
     return (

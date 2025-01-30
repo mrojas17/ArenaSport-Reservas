@@ -1,4 +1,4 @@
-import styles from "../views/ButtonLogin.module.css"
+import styles from "../styles/ButtonLogin.module.css"
 
 
 const Login = () => {

@@ -1,14 +1,9 @@
-import styles from "../views/RegisterUser.module.css";
-import NavBar from "./NavBar";
+import styles from "../styles/RegisterUser.module.css";
 
 const  RegisterUser = () => {
     return (
         <>
 
-
-            <header className={styles.header}>
-                <NavBar/>
-            </header>
             <div className={styles.div}>
                 <h2>Register</h2>
 

@@ -1,4 +1,4 @@
-import styles from "../views/NavBar.module.css";
+import styles from "../styles/NavBar.module.css";
 import ButtonLogin from "./ButtonLogin";
 import logo from "../assets/img/logoArenaSport.png"
 
