@@ -1,18 +1,17 @@
-.div {
-    align-items: center;
-    background-color:  #0d0d4b;
-    color: #e4e0e0;
-    width: 50vw;
-    margin: auto;
-    margin-top: 1.5em;
-    border-radius: 15px;
-    padding: 2em;
-}
+
 
 .form {
     display: grid;
     justify-content: center;
     align-items: center;
+    align-items: center;
+    background-color:  #0d0d4b;
+    color: #e4e0e0;
+    width: 60vw;
+    margin: auto;
+    margin-top: 1.5em;
+    border-radius: 15px;
+    padding: 2em;
     
 }
 

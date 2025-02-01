@@ -11,9 +11,7 @@ const Appointments = () => {
 
     ).then(res=>setTurnos(res.data))
     .catch(err => {
-      console.error("Error response:", err.response);
       console.error("Error message:", err.message);
-      console.error("Error details:", err.response.data);
     });
   }, [])
 
