@@ -3,7 +3,7 @@ import { AppointmentDto } from "../dto/AppointmentDto";
 
 const validateAppointment = (req: Request, res: Response, next: NextFunction): void => {
     
-    const requiredFields: (keyof AppointmentDto)[] = ["asunto","date", "time", "status", "userId"];
+    const requiredFields: (keyof AppointmentDto)[] = ["asunto","date", "time", "status"];
 
     const missingFields = requiredFields.filter(field => !req.body[field]);
 

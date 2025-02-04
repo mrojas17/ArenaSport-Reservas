@@ -11,35 +11,35 @@ const userList = [
         email: "monicarojas1711@gmail.com",
         birthdate: "17/11/1998",
         nDni: 1121959,
-        username: "monicar",
-        password: "juanse"
+        username: "monicar17",
+        password: "juanse@1"
     },{
-        name: "Juan jose",
+        name: "Juan Castro",
         email: "jscastrom1@gmail.com",
         birthdate: "17/11/2025",
         nDni: 137431959,
-        username: "juanse",
-        password: "hsdui6"
+        username: "juanse1",
+        password: "monicarojas@17"
     },{
-        name: "Juan Castro",
-        email: "jscas1711@gmail.com",
+        name: "Juan Esteban",
+        email: "js@gmail.com",
         birthdate: "17/09/1994",
         nDni: 112272,
         username: "juasnd",
-        password: "moni2323"
+        password: "moni@323"
     },{
         name: "Emilia Castro",
         email: "emi1@gmail.com",
         birthdate: "12/11/2025",
         nDni: 17239,
-        username: "emi12",
-        password: "carerad"
+        username: "emilia12",
+        password: "monica@1"
     }
 ];
 
 const preloadAppointments = [
     {
-        asunto: "Reservar cancha de futbol",
+        asunto: "Reservar cancha de Voleibol",
         date: "05/02/2025",
         time: "2 horas",  
         status: AppointmentStatus.ACTIVE,
@@ -49,19 +49,25 @@ const preloadAppointments = [
         date: "07/02/2025",
         time: "1 hora",  
         status: AppointmentStatus.ACTIVE,
-        user: 2
+        userId: 2
     },{
         asunto: "Reservar cancha de Voleibol",
         date: "10/02/2025",
         time: "3 horas",  
         status: AppointmentStatus.ACTIVE,
-        user: 3
+        userId: 3
     },{
         asunto: "Reservar cancha de padel",
         date: "25/02/2025",
         time: "3 horas",  
         status: AppointmentStatus.ACTIVE,
-        user: 4
+        userId: 4
+    },{
+        asunto: "Reservar cancha de Futbol",
+        date: "25/01/2025",
+        time: "3 horas",  
+        status: AppointmentStatus.ACTIVE,
+        userId: 1
     }
 ];
 

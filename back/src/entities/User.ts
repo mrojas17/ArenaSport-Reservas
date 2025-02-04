@@ -16,13 +16,17 @@ export class User {
     })
     name: string;
 
-    @Column()
+    @Column({
+        unique: true
+    })
     email: string;
 
     @Column()
     birthdate: string;
 
-    @Column("integer")
+    @Column({
+        unique:true
+    })
     nDni: number;
 
     @OneToOne(() => Credential)

@@ -8,7 +8,7 @@ import validateUser from '../middlewares/validateUser';
 const userRouter: Router = Router();
 
 userRouter.get("/", auth, getUsers )
-userRouter.get("/:id", auth, getUsersId )
+userRouter.get("/:id", getUsersId )
 
 userRouter.post("/register", validateUser, registerUsers )
 userRouter.post("/login", loginUsers )

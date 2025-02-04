@@ -21,47 +21,6 @@ export const scheduleAppointmentsService = async (
     return newAppointment
 }
 
-
-
-
-
-// export const scheduleAppointmentsService = async (appointmentData: AppointmentDto): Promise<Appointment | void> => {
-//     const queryRunner = AppDataSource.createQueryRunner();
-//     await queryRunner.connect();
-
-//     try {
-//         queryRunner.startTransaction();
-        
-//         const user = await UserRepository.findOneBy({ id: Number(appointmentData.userId)});
-
-//         if (!user) throw new Error("Usuario no encontrado");
-
-//         const newAppointment = AppointmentRepository.create({
-//             asunto: appointmentData.asunto,
-//             date: appointmentData.date,
-//             time: appointmentData.time,
-//             status: appointmentData.status as AppointmentStatus,
-//             user: user,
-//         });
-
-//         await queryRunner.manager.save(newAppointment);
-
-//         await queryRunner.manager.save(newAppointment);
-
-//         await queryRunner.commitTransaction();
-
-//         // 🔹 Enviar email de confirmación
-//         await sendConfirmationEmail(user.email, newAppointment);
-
-//         return newAppointment;
-//     } catch (error: any) {
-//         await queryRunner.rollbackTransaction();
-//         throw new Error("Error creando el turno: " + error.message);
-//     } finally {
-//         await queryRunner.release();
-//     }
-// }
-
 export const getAppointmentsService = async():Promise<Appointment[]> => {
     const appointments = await AppointmentRepository.find();
     return appointments;

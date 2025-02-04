@@ -6,7 +6,7 @@ import validateAppointment from '../middlewares/validateAppointment';
 const appointmentsRouter: Router = Router();
 
 appointmentsRouter.get("/", getAppointments )
-appointmentsRouter.get("/:id", auth, getAppointmentsById)
+appointmentsRouter.get("/:id",  getAppointmentsById)
 
 appointmentsRouter.post("/schedule", validateAppointment, scheduleAppointments )
 appointmentsRouter.put("/cancel/:id", CancelAppointments )

@@ -8,7 +8,8 @@ export class Credential {
     @PrimaryGeneratedColumn()
     id: number;
     
-    @Column()
+    @Column({
+        unique:true})
     username: string;
 
     @Column()

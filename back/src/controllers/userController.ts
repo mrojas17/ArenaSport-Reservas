@@ -19,21 +19,33 @@ export const getUsers = async (req: Request, res: Response):Promise<void> => {
     
 }
 
-export const getUsersId  = async (req: Request, res: Response): Promise<void>=> {
+export const getUsersId = async (req: Request, res: Response): Promise<void> => {
     try {
-        const userId= req.params.id;
+        const userId = Number(req.params.id);
 
-        const user: User | null = await getUserById(Number(userId));
+        if (isNaN(userId)) {
+            res.status(400).json({ error: "El ID de usuario debe ser un número válido" });
+            return;
+        }
+
+        const user = await getUserById(userId);
+
+        if (!user) {
+            res.status(404).json({ error: "Usuario no encontrado" });
+            return;
+        }
 
         res.status(200).json(user);
     } catch (error: any) {
-        res.status(404).json({
-            error: "Error al buscar ese id",
+        console.error("Error en getUsersId:", error);
+        res.status(500).json({
+            error: "Error interno del servidor",
             details: error.message,
         });
     }
-    
-}
+};
+
+
 
 export const registerUsers = async (req: Request, res: Response ) => {
     try {
