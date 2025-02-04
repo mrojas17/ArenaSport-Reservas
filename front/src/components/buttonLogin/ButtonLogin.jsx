@@ -8,27 +8,34 @@ const ButtonLogin = () => {
     const { user, setUser } = useContext(UserContext);
 
     const handleLogin = () => {
-        setUser({
-            username: "UsuarioEjemplo",
-            contraseña: "Masyucula@123"
-
-        });
         navigate('/'); 
     };
 
     const handleLogout = () => {
         setUser(null); 
-        navigate('/'); 
+        navigate('/inicio'); 
     };
 
     return (
-        <button 
-            onClick={user ? handleLogout : handleLogin} 
-            className={styles.button}
-        >
-            {user ? "Cerrar Sesión" : "Ingresar"}
-        </button>
+        <div>
+            {!user ? (
+                <button 
+                    onClick={handleLogin} 
+                    className={styles.button}
+                >
+                    Ingresar
+                </button>
+            ) : (
+                <button 
+                    onClick={handleLogout} 
+                    className={styles.button}
+                >
+                    Cerrar Sesión
+                </button>
+            )}
+        </div>
     );
 };
 
 export default ButtonLogin;
+

@@ -9,7 +9,7 @@
     margin: auto;
     margin-top: 1.5em;
     border-radius: 15px;
-    padding: 2em;
+    padding: 1em;
     
 }
 
@@ -27,4 +27,6 @@
     height: 4vh;
     align-items: center;
     border-radius: 15px;
+    border: none;
+    background-color: #ff914d;
 }

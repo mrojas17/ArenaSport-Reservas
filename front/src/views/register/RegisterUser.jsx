@@ -60,8 +60,8 @@ const  RegisterUser = () => {
   return (
     <form onSubmit={submitHandler} className={styles.form} >
       <h2>Register</h2>
-      <div>
         <label >Nombre:</label>
+      <div>
         <input 
         type="text" 
         value={userData.name} 
@@ -71,8 +71,8 @@ const  RegisterUser = () => {
         className={styles.input}/>
       </div>
       {errors.name && <p>{errors.name}</p>}
-      <div>
         <label >Email:</label>
+      <div>
         <input 
         type="text" 
         value={userData.email} 
@@ -82,8 +82,8 @@ const  RegisterUser = () => {
         className={styles.input}/>
       </div>
       {errors.email && <p>{errors.email}</p>}
-      <div>
         <label >Fecha de Cumpleaños:</label>
+      <div>
         <input 
         type="text" 
         value={userData.birthdate} 
@@ -93,8 +93,8 @@ const  RegisterUser = () => {
         className={styles.input}/>
       </div>
       {errors.birthdate && <p>{errors.birthdate}</p>}
-      <div>
         <label >nDni:</label>
+      <div>
         <input 
         type="number" 
         value={userData.nDni} 
@@ -104,8 +104,8 @@ const  RegisterUser = () => {
         className={styles.input}/>
       </div>
       {errors.nDni && <p>{errors.nDni}</p>}
-      <div>
         <label >Usuario:</label>
+      <div>
         <input 
         type="text" 
         value={userData.username} 
@@ -115,18 +115,21 @@ const  RegisterUser = () => {
         className={styles.input}/>
       </div>
       {errors.username && <p>{errors.username}</p>}
+        <label>Contraseña: </label>
       <div>
-        <label >Contraseña:</label>
         <input 
-        type="text" 
-        value={userData.password} 
-        name='password' 
-        placeholder="*****"
-        onChange={handleInputChange}
-        className={styles.input}/>
-      </div>
-      {errors.password && <p>{errors.password}</p>}
+          type="password" 
+          value={userData.password} 
+          name='password' 
+          placeholder="*****"
+          onChange={handleInputChange}
+          className={`${styles.input} ${errors.password ? styles.error : ""}`} 
+        />
+        {errors.password && <p className={styles.errorText}>{errors.password}</p>}
+      </div>+
+      <div>
       <button type="submit" disabled={isSubmitting} className={styles.button} >Register</button>
+      </div>
     </form>
               
          
