@@ -1,7 +1,7 @@
 import axios from "axios";
-import styles from "../styles/RegisterUser.module.css";
+import styles from "./RegisterUser.module.css";
 import { useState } from "react";
-import { validateRegisterUser } from "../helpers/validate";
+import { validateRegisterUser } from "../../helpers/validate";
 
 const  RegisterUser = () => {
   const initialUserData = {
@@ -34,6 +34,7 @@ const  RegisterUser = () => {
             alert('Usuario Registrado con exito');
             console.log("User register:", res.data);
             setSubmitting(false);
+            setUserData(initialUserData);
           })
           .catch(err => {
             alert(' Usuario no se puede registrar');
@@ -82,7 +83,7 @@ const  RegisterUser = () => {
       </div>
       {errors.email && <p>{errors.email}</p>}
       <div>
-        <label >Birthdate:</label>
+        <label >Fecha de Cumpleaños:</label>
         <input 
         type="text" 
         value={userData.birthdate} 
@@ -104,7 +105,7 @@ const  RegisterUser = () => {
       </div>
       {errors.nDni && <p>{errors.nDni}</p>}
       <div>
-        <label >Username:</label>
+        <label >Usuario:</label>
         <input 
         type="text" 
         value={userData.username} 
@@ -115,7 +116,7 @@ const  RegisterUser = () => {
       </div>
       {errors.username && <p>{errors.username}</p>}
       <div>
-        <label >Password:</label>
+        <label >Contraseña:</label>
         <input 
         type="text" 
         value={userData.password} 

@@ -11,29 +11,29 @@ const userList = [
         email: "monicarojas1711@gmail.com",
         birthdate: "17/11/1998",
         nDni: 1121959,
-        username: "monicar17",
-        password: "juanse@1"
+        username: "onicar17",
+        password: "Juanse@1"
     },{
         name: "Juan Castro",
         email: "jscastrom1@gmail.com",
         birthdate: "17/11/2025",
         nDni: 137431959,
-        username: "juanse1",
-        password: "monicarojas@17"
+        username: "Juanse@1",
+        password: "Monicarojas@17"
     },{
         name: "Juan Esteban",
         email: "js@gmail.com",
         birthdate: "17/09/1994",
         nDni: 112272,
         username: "juasnd",
-        password: "moni@323"
+        password: "Moni@323"
     },{
         name: "Emilia Castro",
         email: "emi1@gmail.com",
         birthdate: "12/11/2025",
         nDni: 17239,
         username: "emilia12",
-        password: "monica@1"
+        password: "Monica@1"
     }
 ];
 

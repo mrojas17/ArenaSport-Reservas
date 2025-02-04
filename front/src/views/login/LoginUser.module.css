@@ -1,0 +1,33 @@
+.div {
+    align-items: center;
+    background-color:  #003f67;
+    color: #e4e0e0;
+    width: 30vw;
+    margin: auto;
+    margin-top: 1.5em;
+    border-radius: 15px;
+    padding: 2em;
+}
+
+.form {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.input {
+    background-color: #fff;
+    width: 20vw;
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 15px;
+    border: 2px solid black;
+}
+
+.button {
+    width: 10vw;
+    height: 4vh;
+    align-items: center;
+    border-radius: 15px;
+}

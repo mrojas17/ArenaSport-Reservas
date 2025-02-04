@@ -19,6 +19,7 @@ export const getUsers = async (req: Request, res: Response):Promise<void> => {
     
 }
 
+
 export const getUsersId = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId = Number(req.params.id);

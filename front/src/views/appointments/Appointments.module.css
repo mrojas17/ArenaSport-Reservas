@@ -1,7 +1,8 @@
 .appointmentsContainer {
     padding: 20px;
-    max-width: 900px;
+    max-width: 80%;
     margin: 0 auto;
+    color: black;
   }
 
 .appointmentSchedule{
@@ -11,10 +12,11 @@
   font-size: 20px;
 }
 .Button {
-  background-color: #0d0d4b;
-  width: 7vw;
+  background-color: #003f67;
+  width: 9vw;
   height: 5vh;
   color: white;
+  border: white solid 2px;
   border-radius: 15px;
 }
 
@@ -31,11 +33,11 @@
   text-align: left;
   border: 1px solid #ddd; 
   font-size: 16px;
-  background-color: #115986;
+  background-color: #497591;
 }
 
 .appointmentsTable th {
-  background-color: #0d0d4b;
+  background-color: #003f67;
   font-weight: bold;
   color: #ddd;
 }

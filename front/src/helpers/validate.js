@@ -1,7 +1,7 @@
 export const validateUsernameAndPassword = (input) => {
     const errors = {};
     const usernameRegex = /^[a-zA-Z0-9]{5,}$/; 
-    const passwordRegex = /^[a-zA-Z0-9]{5,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if (!input.username) {
         errors.username = "Username is required";
@@ -25,7 +25,8 @@ export const validateRegisterUser = input => {
     const birthdateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     const nDniRegex = /^[0-9]+$/;
     const usernameRegex = /^[a-zA-Z0-9]{5,}$/; 
-    const passwordRegex = /^[a-zA-Z0-9]{5,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    ;
 
     if (!input.name) {
         errors.name = "Name is required";
@@ -57,7 +58,7 @@ export const validateRegisterUser = input => {
     if (!input.password) {
         errors.password = "Password is required";
     } else if (!passwordRegex.test(input.password)) {
-        errors.password = "Password is at least 5 characters long";
+        errors.password = "Debe tener una Mayuscula, un numero, un caracter espacial (@!-), y minimo 8 caracteres";
     }
 
     return errors;

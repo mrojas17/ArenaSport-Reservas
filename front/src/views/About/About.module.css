@@ -1,0 +1,34 @@
+.about {
+    align-items: center;
+    color: black;
+    width: 80%;
+    margin: auto;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    border-radius: 15px;
+  }
+  
+  .about h1 {
+    text-align: center;
+    color: black;
+  }
+  
+  .about h2 {
+    margin-top: 20px;
+    color: black;
+  }
+  
+  .about p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .about ul {
+    list-style-type: square;
+    padding-left: 20px;
+  }
+  
+  .about ul li {
+    margin-bottom: 5px;
+    list-style-type: none;
+  }

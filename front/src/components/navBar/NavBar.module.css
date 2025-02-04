@@ -1,0 +1,55 @@
+.div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #003f67; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.divContainerLink {
+  display: flex;
+  gap: 70px;
+  padding: 15px 30px;
+  border-radius: 8px;
+}
+
+.divContainerLink a {
+  position: relative;
+  text-decoration: none;
+  color: #ff914d;
+  font-weight: bold;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.divContainerLink a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px; 
+  width: 0%;
+  height: 3px;
+  background-color: white;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.divContainerLink a:hover::after {
+  width: 100%;
+  left: 0%;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 100%; 
+}
+
+.logo {
+  max-width: 100%; 
+  max-height: 50px; 
+  object-fit: contain; 
+}
+
