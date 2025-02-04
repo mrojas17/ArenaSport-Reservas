@@ -7,14 +7,12 @@ import styles from "./Appointments.module.css";
 
 const Appointments = () => {
   const { user, userAppointments, setUserAppointments } = useContext(UserContext);
-  console.log("este es el id del usuario", user.id)
   const navigate = useNavigate();
   
   useEffect(() => {
       axios
         .get(`http://localhost:3000/users/${user.id}`)
         .then((response) => {
-          console.log("Appointments que trae:", response.data.appointments);
           setUserAppointments(response.data.appointments);
         })
         .catch((error) => {

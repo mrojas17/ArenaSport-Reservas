@@ -63,3 +63,27 @@ export const validateRegisterUser = input => {
 
     return errors;
 }
+
+export const validateAppointmentData = (appointmentData) => {
+    const { date, time } = appointmentData;
+    const errors = [];
+  
+    const today = new Date();
+    const selectedDate = new Date(date);
+    if (selectedDate <= today) {
+      errors.push('La fecha debe ser posterior al día de hoy.');
+    }
+  
+    const [hours] = time.split(':').map(Number);
+    if (hours < 8 || hours >= 22) {
+      errors.push('La hora debe estar entre las 08:00 y las 22:00.');
+    }
+
+    const dayOfWeek = selectedDate.getDay();
+    if (dayOfWeek === 5 || dayOfWeek === 6) {
+    errors.push('No se pueden hacer reservas en fines de semana (sábado y domingo).');
+    }
+  
+    return errors; 
+  };
+  

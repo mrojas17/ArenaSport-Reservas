@@ -30,3 +30,7 @@
     align-items: center;
     border-radius: 15px;
 }
+
+.errorMessages ul li {
+    list-style: none;
+}
