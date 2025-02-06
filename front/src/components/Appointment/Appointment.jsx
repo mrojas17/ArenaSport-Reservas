@@ -35,7 +35,7 @@ const Appointment = ({ id, asunto, date, time, status, onOpenModal }) => {
           className={`${styles.cancelButton} ${status === "Cancelled" ? styles.disabledButton : ""}`}
           disabled={status === "Cancelled"}
         >
-          {submitting ? "Cancelando..." : "Confirmar"}
+          {submitting ? "Cancelando..." : "Cancelar"}
         </button>
       </td>
     </tr>
