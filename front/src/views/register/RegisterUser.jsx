@@ -2,63 +2,63 @@ import axios from "axios";
 import styles from "./RegisterUser.module.css";
 import { useState } from "react";
 import { validateRegisterUser } from "../../helpers/validate";
+import { useNavigate } from "react-router-dom";
 
-const  RegisterUser = () => {
+const RegisterUser = () => {
+   
+  const navigate = useNavigate();
   const initialUserData = {
-    name:'',
-    email:'',
-    birthdate:'',
-    nDni:'',
-    username:'',
-    password:'',
-  };
+  name: '',
+  email: '',
+  birthdate: '',
+  nDni: '',
+  username: '',
+  password: '',
+}
   const [userData, setUserData] = useState(initialUserData);
+  const [isSubmitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
 
-    const [errors, setErrors] =  useState({});
-    console.log(errors);
-    const [isSubmitting, setSubmitting] = useState(false);
-    
-    const handleInputChange = (event) => {
-        const {name, value} = event.target;
-        
-        setUserData({
-            ...userData,
-            [name]: value,
-        });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+    setErrors({ ...errors, [name]: "" });
+  };
+
+  const handleOnSubmit = async (event) => {
+    event.preventDefault();
+    const validationErrors = validateRegisterUser(userData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setSubmitting(false);
+      return; 
     }
+    setSubmitting(true);
+    try {
+      await axios.post("http://localhost:3000/users/register", userData);
+      alert('Usuario Registrado con exito');
+      setUserData(initialUserData)
+      navigate("/");
+    } catch (err) {
+      if (err.response) {
+        const errorMessage = err.response.data.details;
 
-    const handleOnSubmit  = (values, setSubmitting) => {
-        setSubmitting(true);
-        axios.post("http://localhost:3000/users/register", values)
-          .then(res => {
-            alert('Usuario Registrado con exito');
-            console.log("User register:", res.data);
-            setSubmitting(false);
-            setUserData(initialUserData);
-          })
-          .catch(err => {
-            alert(' Usuario no se puede registrar');
-            console.error("Error details:", err.response.data);
-            setUserData(initialUserData);
-            setSubmitting(false);
-          });
-    }
-
-    const submitHandler = (event) => {
-        event.preventDefault();
-
-        const validationErrors = validateRegisterUser(userData);
-        setErrors(validationErrors);
-
-        if (Object.keys(validationErrors).length > 0) {
-            return;
+        if (errorMessage.includes("El email ya está registrado")) {
+          alert("Este email ya está registrado");
+        } 
+        if(errorMessage.includes("El nombre de usuario ya está en uso")){
+          alert("Este nombre de usuario ya existe");
         }
-
-        handleOnSubmit(userData, setSubmitting);
-    }
+      setSubmitting(false);
+      }
+    };
+  }
   
   return (
-    <form onSubmit={submitHandler} className={styles.form} >
+    <form onSubmit={handleOnSubmit} className={styles.form} >
       <h2>Register</h2>
         <label >Nombre:</label>
       <div>
@@ -66,11 +66,11 @@ const  RegisterUser = () => {
         type="text" 
         value={userData.name} 
         name='name' 
-        placeholder="name and lastname"
+        placeholder="Nombre y Apellido"
         onChange={handleInputChange}
-        className={styles.input}/>
+        className={`${styles.input} ${errors.name ? styles.error : ""}`} />
+        {errors.name && <p className={styles.errorText}>{errors.name}</p>}
       </div>
-      {errors.name && <p>{errors.name}</p>}
         <label >Email:</label>
       <div>
         <input 
@@ -79,20 +79,20 @@ const  RegisterUser = () => {
         name='email' 
         placeholder="example@gmail.com"
         onChange={handleInputChange}
-        className={styles.input}/>
+        className={`${styles.input} ${errors.email ? styles.error : ""}`} />
+        {errors.email && <p className={styles.errorText}>{errors.email}</p>}
       </div>
-      {errors.email && <p>{errors.email}</p>}
         <label >Fecha de Cumpleaños:</label>
       <div>
         <input 
-        type="text" 
+        type="date" 
         value={userData.birthdate} 
         name='birthdate' 
         placeholder="dd/mm/aaaa"
         onChange={handleInputChange}
-        className={styles.input}/>
+        className={`${styles.input} ${errors.birthdate ? styles.error : ""}`} />
+        {errors.birthdate && <p className={styles.errorText}>{errors.birthdate}</p>}
       </div>
-      {errors.birthdate && <p>{errors.birthdate}</p>}
         <label >nDni:</label>
       <div>
         <input 
@@ -101,9 +101,9 @@ const  RegisterUser = () => {
         name='nDni' 
         placeholder="nDni"
         onChange={handleInputChange}
-        className={styles.input}/>
+        className={`${styles.input} ${errors.nDni ? styles.error : ""}`} />
+        {errors.nDni && <p className={styles.errorText}>{errors.nDni}</p>}
       </div>
-      {errors.nDni && <p>{errors.nDni}</p>}
         <label >Usuario:</label>
       <div>
         <input 
@@ -112,9 +112,9 @@ const  RegisterUser = () => {
         name='username' 
         placeholder="username"
         onChange={handleInputChange}
-        className={styles.input}/>
+        className={`${styles.input} ${errors.username ? styles.error : ""}`} />
+        {errors.username && <p className={styles.errorText}>{errors.username}</p>}
       </div>
-      {errors.username && <p>{errors.username}</p>}
         <label>Contraseña: </label>
       <div>
         <input 
@@ -123,10 +123,18 @@ const  RegisterUser = () => {
           name='password' 
           placeholder="*****"
           onChange={handleInputChange}
-          className={`${styles.input} ${errors.password ? styles.error : ""}`} 
-        />
+          className={`${styles.input} ${errors.password ? styles.error : ""}`} />
         {errors.password && <p className={styles.errorText}>{errors.password}</p>}
-      </div>+
+      </div>
+      {errors.length > 0 && (
+              <div className={styles.errorMessages}>
+                <ul>
+                  {errors.map((error, index) => (
+                    <li key={index} style={{ color: "red" }}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
       <div>
       <button type="submit" disabled={isSubmitting} className={styles.button} >Register</button>
       </div>

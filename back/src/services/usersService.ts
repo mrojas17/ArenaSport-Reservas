@@ -9,12 +9,18 @@ import { Appointment } from "../entities/Appointment";
 
 export const registerUsersService = async(userData: UserDto) => { 
     
+    const existingUser = await UserRepository.findOne({ where: { email: userData.email } });
+
+    if (existingUser) {
+        throw new Error("El email ya está registrado");
+    }
+    
     const credential = await createCredentialUser({
             username: userData.username, 
             password: userData.password,
         });
 
-    const user = await UserRepository.create({
+    const user =  UserRepository.create({
             name: userData.name,
             email: userData.email,
             birthdate: userData.birthdate,

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { validateUsernameAndPassword } from "../../helpers/validate";
 import { UserContext } from "../../context/UserContext";
@@ -30,10 +30,8 @@ function LoginUser() {
         }
         setSubmitting(true);
         try {
-            const loginResponse = await axios.post("http://localhost:3000/users/login", userData);
-            console.log("🔹 Respuesta del servidor:", loginResponse.data);  
+            const loginResponse = await axios.post("http://localhost:3000/users/login", userData); 
             setUser(loginResponse.data.users);
-            console.log("✅ Usuario después de iniciar sesión:", loginResponse.data.users);
             navigate('/inicio');
         } catch (err) {
             alert('Usuario o Contraseña incorrectos');
@@ -47,12 +45,11 @@ function LoginUser() {
             <h2>Login</h2>
             
             <div>
-                <label>Usuario: </label>
                 <input 
                     type="text" 
                     value={userData.username} 
                     name='username' 
-                    placeholder="usuario"
+                    placeholder="Usuario"
                     onChange={handleInputChange}
                     className={`${styles.input} ${errors.username ? styles.error : ""}`} 
                 />
@@ -60,18 +57,22 @@ function LoginUser() {
             </div>
 
             <div>
-                <label>Contraseña: </label>
                 <input 
                     type="password" 
                     value={userData.password} 
                     name='password' 
-                    placeholder="*****"
+                    placeholder="Contraseña"
                     onChange={handleInputChange}
                     className={`${styles.input} ${errors.password ? styles.error : ""}`} 
                 />
                 {errors.password && <p className={styles.errorText}>{errors.password}</p>}
             </div>
-
+            <div className={styles.registro}>
+                <h4>¿No tienes una cuenta?</h4>
+                <Link to="/registro">
+                    <h4>Regístrate</h4>
+                </Link>
+            </div>
             <button type="submit" disabled={isSubmitting} className={styles.button}>
                 {isSubmitting ? 'Sesion en...' : 'Iniciar Sesión'}
             </button>

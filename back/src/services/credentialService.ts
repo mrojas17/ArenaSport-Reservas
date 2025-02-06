@@ -6,6 +6,14 @@ export const createCredentialUser = async (
     credentialData: CredentialDto
 ) => {
 
+    const existingCredential = await CredentialRepository.findOne({ 
+        where: { username: credentialData.username } 
+    });
+    
+    if (existingCredential) {
+    throw new Error("El nombre de usuario ya está en uso");
+    }
+
     const credential = CredentialRepository.create({
         username: credentialData.username,
         password: credentialData.password,

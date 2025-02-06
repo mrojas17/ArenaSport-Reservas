@@ -2,11 +2,9 @@ import styles from "./Card.module.css";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import axios from "axios";
-import Modal from "../modalCancel/ModalCancel"
 
-const Appointment = ({ id, asunto, date, time, status }) => {
+const Appointment = ({ id, asunto, date, time, status, onOpenModal }) => {
   const { fetchUserAppointments } = useContext(UserContext);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const handlerCancel = async () => {
@@ -20,22 +18,9 @@ const Appointment = ({ id, asunto, date, time, status }) => {
       }
     } catch (error) {
       console.error("Error cancelling the appointment:", error);
-    }  finally {
+    } finally {
       setSubmitting(false);
     }
-  };
-
-  const handleCancelClick = () => {
-    setIsModalOpen(true); // Abre el modal cuando se hace clic en "Cancelar"
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false); // Cierra el modal si el usuario no confirma
-  };
-
-  const handleConfirmCancel = () => {
-    handlerCancel(); // Cancela la cita al confirmar
-    setIsModalOpen(false); // Cierra el modal tras cancelar
   };
 
   return (
@@ -46,20 +31,13 @@ const Appointment = ({ id, asunto, date, time, status }) => {
       <td>{status}</td>
       <td>
         <button
-          onClick={handleCancelClick}
+          onClick={() => onOpenModal({ id, handlerCancel })}
           className={`${styles.cancelButton} ${status === "Cancelled" ? styles.disabledButton : ""}`}
           disabled={status === "Cancelled"}
         >
-          Cancelar
+          {submitting ? "Cancelando..." : "Confirmar"}
         </button>
       </td>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmCancel}
-        submitting={submitting}
-        message="¿Estás seguro de que quieres cancelar esta cita?"
-      />
     </tr>
   );
 };

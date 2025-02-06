@@ -1,7 +1,6 @@
 import nodemailer from "nodemailer";
 import { PASSWORD_EMAIL, USERNAME_EMAIL } from "../config/envs";
 
-// Configurar el transporter de Nodemailer
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -10,7 +9,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Función para enviar un correo
 export const sendConfirmationEmail = async (to: string, appointment: any) => {
   const mailOptions = {
     from: "tu_correo@gmail.com",

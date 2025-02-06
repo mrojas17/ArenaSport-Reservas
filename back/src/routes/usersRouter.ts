@@ -10,7 +10,7 @@ const userRouter: Router = Router();
 userRouter.get("/", auth, getUsers )
 userRouter.get("/:id", getUsersId )
 
-userRouter.post("/register", validateUser, registerUsers )
+userRouter.post("/register", validateUser,  registerUsers )
 userRouter.post("/login", loginUsers )
 
 export default userRouter;

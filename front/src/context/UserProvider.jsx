@@ -3,7 +3,6 @@ import { UserContext } from "./UserContext";
 import axios from "axios";
 
 export const UserProvider = ({ children }) => {
-  const [auth, setAuth] = useState(null);
 
   const [user, setUser] = useState(() => {
     try {
@@ -49,14 +48,11 @@ export const UserProvider = ({ children }) => {
     } else {
       localStorage.removeItem("user");
     }
-    console.log("🔄 Usuario actualizado en contexto:", user);
   }, [user]);
 
   return (
     <UserContext.Provider
       value={{
-        auth,
-        setAuth,
         user,
         setUser,
         userAppointments,

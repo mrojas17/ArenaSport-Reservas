@@ -4,59 +4,51 @@ export const validateUsernameAndPassword = (input) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if (!input.username) {
-        errors.username = "Username is required";
+        errors.username = "Usuario es requerido";
     } else if (!usernameRegex.test(input.username)) {
-        errors.username = "Username is at least 5 characters long";
+        errors.username = "El usuario debe tener minimo 5 caracteres";
     }
 
     if (!input.password) {
-        errors.password = "Password is required";
+        errors.password = "Contraseña es requerida";
     } else if (!passwordRegex.test(input.password)) {
-        errors.password = "Password is at least 5 characters long";
+        errors.password = "Debe tener una Mayuscula, un numero, un caracter espacial (@!-), y minimo 8 caracteres";
     }
 
     return errors;
 }
 
-export const validateRegisterUser = input => {
+export const validateRegisterUser = (input) => {
     const errors={}
     const nameRegex = /^[a-zA-Z\s]{5,}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const birthdateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     const nDniRegex = /^[0-9]+$/;
     const usernameRegex = /^[a-zA-Z0-9]{5,}$/; 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-    ;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if (!input.name) {
-        errors.name = "Name is required";
+        errors.name = "Nombre y Apellido es requerido";
     } else if (!nameRegex.test(input.name)) {
-        errors.name = "Name must be at least 5 characters long and contain only letters";
+        errors.name = "Nombre y Apellido";
     }
 
     if (!input.email) {
-        errors.email = "Email is required";
+        errors.email = "Email es requerido";
     } else if (!emailRegex.test(input.email)) {
-        errors.email = "Email is not valid";
-    }
-
-    if (!input.birthdate) {
-        errors.birthdate = "Birthdate is required";
-    } else if (!birthdateRegex.test(input.birthdate)) {
-        errors.birthdate = "Birthdate must be in the format dd/mm/yyyy";
+        errors.email = "Email no es valido";
     }
 
     if (input.phone && !nDniRegex.test(input.nDni)) {
-        errors.phone = "Phone number must contain only numbers";
+        errors.phone = "el nDni es de solo numeros";
     }
     if (!input.username) {
-        errors.username = "Username is required";
+        errors.username = "Usuario es requerido";
     } else if (!usernameRegex.test(input.username)) {
-        errors.username = "Username is at least 5 characters long";
+        errors.username = "Usuario debe tener al menos 5 caracteres";
     }
 
     if (!input.password) {
-        errors.password = "Password is required";
+        errors.password = "Contraseña es requerida";
     } else if (!passwordRegex.test(input.password)) {
         errors.password = "Debe tener una Mayuscula, un numero, un caracter espacial (@!-), y minimo 8 caracteres";
     }
@@ -86,4 +78,4 @@ export const validateAppointmentData = (appointmentData) => {
   
     return errors; 
   };
-  
+

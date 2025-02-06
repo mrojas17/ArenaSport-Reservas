@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import UserDto from "../dto/UserDto";
+import UserRepository from "../repositories/UserRepository";
 
 const validateUser = (req: Request, res: Response, next: NextFunction): void => {
     
@@ -17,5 +18,5 @@ const validateUser = (req: Request, res: Response, next: NextFunction): void => 
 
     next();
 };
-
 export default validateUser;
+
