@@ -24,7 +24,7 @@
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/arena-sport.git
+git clone https://github.com/mrojas17/ArenaSport-Reservas.git
 cd arena-sport
 ```
 
@@ -40,6 +40,7 @@ npm install
 #### 🔧 Variables de entorno
 
 Crea un archivo `.env` en la carpeta `back` con tus variables necesarias, por ejemplo:
+revisa el `.env.example`
 
 ```env
 DB_HOST=localhost
