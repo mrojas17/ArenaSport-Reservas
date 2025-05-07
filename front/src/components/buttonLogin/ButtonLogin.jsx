@@ -8,12 +8,12 @@ const ButtonLogin = () => {
     const { user, setUser } = useContext(UserContext);
 
     const handleLogin = () => {
-        navigate('/'); 
+        navigate('/login'); 
     };
 
     const handleLogout = () => {
         setUser(null); 
-        navigate('/inicio'); 
+        navigate('/'); 
     };
 
     return (

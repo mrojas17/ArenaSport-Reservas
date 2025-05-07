@@ -11,7 +11,7 @@ const NavBar = () =>{
     return(
         <div className={styles.div}>
             <div className={styles.divContainerLink}>
-                <Link to="/inicio">Inicio</Link>
+                <Link to="/">Inicio</Link>
                 {user ? <Link to="/mis-turnos">Mis Turnos</Link> : null}
                 <Link to="/contacto">Contacto</Link>
                 <Link to="/sobre-nosotros">Sobre Nosotros</Link>

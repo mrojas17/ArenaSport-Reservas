@@ -32,7 +32,7 @@ function LoginUser() {
         try {
             const loginResponse = await axios.post("http://localhost:3000/users/login", userData); 
             setUser(loginResponse.data.users);
-            navigate('/inicio');
+            navigate('/');
         } catch (err) {
             alert('Usuario o Contraseña incorrectos');
             console.error("Error details:", err.response.data);

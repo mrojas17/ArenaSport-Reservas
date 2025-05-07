@@ -41,7 +41,7 @@ const RegisterUser = () => {
       await axios.post("http://localhost:3000/users/register", userData);
       alert('Usuario Registrado con exito');
       setUserData(initialUserData)
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       if (err.response) {
         const errorMessage = err.response.data.details;
